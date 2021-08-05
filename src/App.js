@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 const App = () => {
   const [meanings, setMeanings] = useState([]);
   const [word, setWord] = useState('');
+  const [category, setCategory] = useState('en');
   const fetchDetails = async () => {
     const data = await fetch(
       `https://api.dictionaryapi.dev/api/v2/entries/en_US/hello`
@@ -24,7 +25,12 @@ const App = () => {
         maxWidth='md'
         style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}
       >
-        <Header />
+        <Header
+          category={category}
+          setCategory={setCategory}
+          word={word}
+          setWord={setWord}
+        />
       </Container>
     </div>
   );
