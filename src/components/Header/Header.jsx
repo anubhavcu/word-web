@@ -11,6 +11,10 @@ const Header = ({ category, setCategory, word, setWord }) => {
       type: 'dark',
     },
   });
+  const handleLanguageChange = (language) => {
+    setCategory(language);
+    setWord('');
+  };
 
   return (
     <div className='header'>
@@ -27,7 +31,7 @@ const Header = ({ category, setCategory, word, setWord }) => {
             select
             className='select'
             value={category}
-            onChange={(e) => setCategory(e.target.value)} // e.target.value is label , see value below
+            onChange={(e) => handleLanguageChange(e.target.value)} // e.target.value is label , see value below
             label='Language'
           >
             {categories.map((category) => (

@@ -7,7 +7,7 @@ const App = () => {
   const [category, setCategory] = useState('en');
   const fetchDetails = async () => {
     const data = await fetch(
-      `https://api.dictionaryapi.dev/api/v2/entries/en_US/hello`
+      `https://api.dictionaryapi.dev/api/v2/entries/${category}/${word}`
     );
     const res = await data.json();
     console.log(res);
@@ -15,7 +15,7 @@ const App = () => {
   };
   useEffect(() => {
     fetchDetails();
-  }, []);
+  }, [word]);
   return (
     <div
       className='App'
