@@ -1,17 +1,23 @@
 import { Container } from '@material-ui/core';
 import { useState, useEffect } from 'react';
+import Definitions from './components/Definitions/Definitions';
 import Header from './components/Header/Header';
 const App = () => {
-  const [meanings, setMeanings] = useState([]);
   const [word, setWord] = useState('');
+  const [meanings, setMeanings] = useState([]);
   const [category, setCategory] = useState('en');
   const fetchDetails = async () => {
-    const data = await fetch(
-      `https://api.dictionaryapi.dev/api/v2/entries/${category}/${word}`
-    );
-    const res = await data.json();
-    console.log(res);
-    setMeanings(res.data);
+    try {
+      const data = await fetch(
+        `https://api.dictionaryapi.dev/api/v2/entries/${category}/${word}`
+      );
+      const res = await data.json();
+      console.log(res);
+      res.typeof === 'Array' ? setMeanings(res) : setMeanings(res.title);
+    } catch (err) {
+      console.log(err);
+    }
+    // setMeanings(res);
   };
   useEffect(() => {
     fetchDetails();
@@ -31,6 +37,7 @@ const App = () => {
           word={word}
           setWord={setWord}
         />
+        <Definitions word={word} meanings={meanings} category={category} />
       </Container>
     </div>
   );
